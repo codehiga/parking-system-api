@@ -1,45 +1,36 @@
+import { CarRepositoryImplementation } from '../adapter/car.repository.impl';
 import { Car } from './entities/car.entity';
 import { Injectable } from '@nestjs/common';
-import { CarRepository } from './car.repository';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { randomUUID } from 'crypto';
 
+const carRepository = new CarRepositoryImplementation();
+
 @Injectable()
 export class CarService {
 
-  carRepository : CarRepository;
-  car = new Car();
-
-
   create(createCarDto: CreateCarDto) {
-    
-    if(!createCarDto.checkin) createCarDto.checkin = new Date();
+    const car : Car = {
+      id : randomUUID(),
+      color: createCarDto.color,
+      plate : createCarDto.plate,
+      idOwner : createCarDto.idOwner
 
-    this.car.setId(randomUUID());
-    this.car.setCheckin(createCarDto.checkin);
-    this.car.setCheckout(new Date());
-    this.car.setColor(createCarDto.color);
-    this.car.setPlate(createCarDto.plate);
+    }
 
-
-    return this.car
-    return this.carRepository.add(this.car);
+    return carRepository.add(car);
   }
 
   findAll() {
-    return `This action returns all car`;
+    return carRepository.list();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} car`;
+  findOne(id: string) {
+    return carRepository.one(id);
   }
 
-  update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} car`;
+  update(id: string, updateCarDto: UpdateCarDto) {
+    return carRepository.update(id, updateCarDto);
   }
 }
