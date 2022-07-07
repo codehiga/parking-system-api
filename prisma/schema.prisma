@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id          String        @id
+  plate       String
+  color       String
+  idOwner     String
+  Owner       Owner         @relation(fields: [idOwner], references: [id])
+  Transaction Transaction[]
+}
+
+model Owner {
+  id          String        @id
+  name        String
+  tel         String
+  Car         Car[]
+  Transaction Transaction[]
+}
+
+model Transaction {
+  id       String   @id
+  idCar    String
+  idOwner  String
+  checkin  DateTime
+  checkout DateTime
+  Car      Car      @relation(fields: [idCar], references: [id])
+  Owner    Owner    @relation(fields: [idOwner], references: [id])
+}
