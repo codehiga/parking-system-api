@@ -29,7 +29,7 @@ model Transaction {
   idCar    String
   idOwner  String
   checkin  DateTime
-  checkout DateTime
+  checkout DateTime?
   Car      Car      @relation(fields: [idCar], references: [id])
   Owner    Owner    @relation(fields: [idOwner], references: [id])
 }

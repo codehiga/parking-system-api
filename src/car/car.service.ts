@@ -16,7 +16,6 @@ export class CarService {
       color: createCarDto.color,
       plate : createCarDto.plate,
       idOwner : createCarDto.idOwner
-
     }
 
     return carRepository.add(car);

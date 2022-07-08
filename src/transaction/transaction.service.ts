@@ -1,26 +1,23 @@
+import { TransactionRepositoryImplementation } from './../adapter/transaction.impl';
+import { randomUUID } from 'crypto';
+import { Transaction } from './entities/transaction.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+
+const transactionRepo = new TransactionRepositoryImplementation();
 
 @Injectable()
 export class TransactionService {
   create(createTransactionDto: CreateTransactionDto) {
-    return 'This action adds a new transaction';
+
+    const transaction : Transaction = {
+      id : randomUUID(),
+      checkin : new Date(),
+      idCar : createTransactionDto.idCar,
+      idOwner : createTransactionDto.idOwner
+    }
+
+    return transactionRepo.add(transaction);
   }
 
-  findAll() {
-    return `This action returns all transaction`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} transaction`;
-  }
-
-  update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return `This action updates a #${id} transaction`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} transaction`;
-  }
 }
