@@ -1,3 +1,4 @@
+import { UpdateTransactionDto } from './../transaction/dto/update-transaction.dto';
 import { TransactionRepository } from './../transaction/transaction.repository';
 import { PrismaClient } from "@prisma/client";
 import { Transaction } from 'src/transaction/entities/transaction.entity';
@@ -6,26 +7,43 @@ const prisma = new PrismaClient();
 
 export class TransactionRepositoryImplementation implements TransactionRepository {
   
-  add = async (transaction: Transaction) => {
+  doCheckin = async (transaction: Transaction) => {
     return await prisma.transaction.create({
       data : transaction
     });
   };
 
-  isParked = async (id: string) => {
+  isParked = async (plate: string) => {
 
-    let query = await prisma.transaction.findUnique({
-      where : { id }
-    });
+    let query = await prisma.transaction.count({
+      where : {
+        idCar : {
+          equals : plate
+        }
+      }
+    })
     
-    return query !== null ? true : false;
+    return query === 1 ? true : false;
   };
 
-  allParkedCars: () => Promise<Transaction[]>;
+  allParkedCars = async () => {
 
-  findById: (id: string) => Promise<Transaction>;
+    return await prisma.transaction.findMany();
+  };
 
-  doCheckout: (id: string) => Promise<Transaction>;
+  doCheckout = async (id : string, transaction : UpdateTransactionDto) => {
+    return await prisma.oldTransaction.create({
+      data : {
+        id,
+        ...transaction
+      }
+    })
+  };
 
-  doCheckin : (id:string) => Promise<Transaction>;
+
+  one = async (id:string) => {
+    return await prisma.transaction.findUnique({
+      where : { id }
+    })
+  }
 }

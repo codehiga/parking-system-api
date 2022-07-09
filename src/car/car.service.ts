@@ -12,7 +12,6 @@ export class CarService {
 
   create(createCarDto: CreateCarDto) {
     const car : Car = {
-      id : randomUUID(),
       color: createCarDto.color,
       plate : createCarDto.plate,
       idOwner : createCarDto.idOwner

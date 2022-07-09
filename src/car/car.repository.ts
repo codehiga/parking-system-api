@@ -5,6 +5,6 @@ export interface CarRepository {
 
   add : ( car : Car ) => Promise<Car>;
   list : () => Promise<Car[]>;
-  one : ( id : string ) => Promise<Car>;
-  update : ( id : string, updatedCarDto : UpdateCarDto ) => Promise<Car>;
+  one : ( plate : string ) => Promise<Car>;
+  update : ( plate : string, updatedCarDto : UpdateCarDto ) => Promise<Car>;
 }
