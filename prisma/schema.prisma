@@ -8,28 +8,39 @@ datasource db {
 }
 
 model Car {
-  id          String        @id
-  plate       String
-  color       String
-  idOwner     String
-  Owner       Owner         @relation(fields: [idOwner], references: [id])
-  Transaction Transaction[]
+  plate          String           @id
+  color          String
+  idOwner        String
+  Owner          Owner            @relation(fields: [idOwner], references: [id])
+  Transaction    Transaction[]
+  OldTransaction OldTransaction[]
 }
 
 model Owner {
-  id          String        @id
-  name        String
-  tel         String
-  Car         Car[]
-  Transaction Transaction[]
+  id             String           @id
+  name           String
+  tel            String
+  Car            Car[]
+  Transaction    Transaction[]
+  OldTransaction OldTransaction[]
 }
 
 model Transaction {
-  id       String   @id
+  id       String    @id
   idCar    String
   idOwner  String
   checkin  DateTime
   checkout DateTime?
-  Car      Car      @relation(fields: [idCar], references: [id])
-  Owner    Owner    @relation(fields: [idOwner], references: [id])
+  Car      Car       @relation(fields: [idCar], references: [plate])
+  Owner    Owner     @relation(fields: [idOwner], references: [id])
+}
+
+model OldTransaction {
+  id       String    @id
+  idCar    String
+  idOwner  String
+  checkin  DateTime
+  checkout DateTime?
+  Car      Car       @relation(fields: [idCar], references: [plate])
+  Owner    Owner     @relation(fields: [idOwner], references: [id])
 }

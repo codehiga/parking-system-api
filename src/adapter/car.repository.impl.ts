@@ -19,15 +19,15 @@ export class CarRepositoryImplementation implements CarRepository {
     return prisma.car.findMany();
   }
 
-  one = async (id:string) => {
+  one = async (plate : string) => {
     return prisma.car.findFirst({
-      where : { id }
+      where : { plate }
     });
   }
 
-  update = async (id: string, updateCarDto : UpdateCarDto) => {
+  update = async (plate: string, updateCarDto : UpdateCarDto) => {
     return prisma.car.update({
-      where : { id },
+      where : { plate },
       data : updateCarDto
     })
   }
