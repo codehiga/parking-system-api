@@ -3,7 +3,6 @@ import { Transaction } from './entities/transaction.entity';
 
 
 export interface TransactionRepository {
-
   doCheckin : ( transaction : Transaction ) => Promise<Transaction>;
   isParked : ( plate : string ) => Promise<Boolean>;
   allParkedCars : () => Promise<Transaction[]>;

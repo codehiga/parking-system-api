@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 export class TransactionRepositoryImplementation implements TransactionRepository {
   
   doCheckin = async (transaction: Transaction) => {
+  add = async (transaction: Transaction) => {
     return await prisma.transaction.create({
       data : transaction
     });
@@ -46,4 +47,21 @@ export class TransactionRepositoryImplementation implements TransactionRepositor
       where : { id }
     })
   }
+  
+  isParked = async (id: string) => {
+
+    let query = await prisma.transaction.findUnique({
+      where : { id }
+    });
+    
+    return query !== null ? true : false;
+  };
+
+  allParkedCars: () => Promise<Transaction[]>;
+
+  findById: (id: string) => Promise<Transaction>;
+
+  doCheckout: (id: string) => Promise<Transaction>;
+
+  doCheckin : (id:string) => Promise<Transaction>;
 }

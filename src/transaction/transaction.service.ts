@@ -40,4 +40,13 @@ export class TransactionService {
 
     return await transactionRepo.doCheckout(id, transaction);
   }
+    const transaction : Transaction = {
+      id : randomUUID(),
+      checkin : new Date(),
+      idCar : createTransactionDto.idCar,
+      idOwner : createTransactionDto.idOwner
+    }
+
+    return transactionRepo.add(transaction);
+  }
 }
