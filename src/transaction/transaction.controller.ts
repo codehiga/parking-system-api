@@ -20,7 +20,7 @@ export class TransactionController {
   @Get("/parked/:id")
   isParked(@Param('id') params : string){
 
-    return this.transactionService.isParket(params);
+    return this.transactionService.isParked(params);
   }
 
   @Patch("/checkout/:id")

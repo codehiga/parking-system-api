@@ -26,7 +26,7 @@ export class TransactionService {
     return transactionRepo.allParkedCars();
   }
 
-  isParket(plate : string){
+  isParked(plate : string){
 
     return transactionRepo.isParked(plate);
   }
