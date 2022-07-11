@@ -35,8 +35,13 @@ export class TransactionService {
 
     const transaction : UpdateTransactionDto = await transactionRepo.one(id);
     transaction.checkout = new Date();
+    transaction.active = false;
 
     return await transactionRepo.doCheckout(id, transaction);
+  }
+
+  async one(id:string) {
+    return await transactionRepo.one(id);
   }
 
 }

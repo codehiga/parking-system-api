@@ -13,7 +13,6 @@ model Car {
   idOwner        String
   Owner          Owner            @relation(fields: [idOwner], references: [id])
   Transaction    Transaction[]
-  OldTransaction OldTransaction[]
 }
 
 model Owner {
@@ -22,7 +21,6 @@ model Owner {
   tel            String
   Car            Car[]
   Transaction    Transaction[]
-  OldTransaction OldTransaction[]
 }
 
 model Transaction {
@@ -31,16 +29,7 @@ model Transaction {
   idOwner  String
   checkin  DateTime
   checkout DateTime?
-  Car      Car       @relation(fields: [idCar], references: [plate])
-  Owner    Owner     @relation(fields: [idOwner], references: [id])
-}
-
-model OldTransaction {
-  id       String    @id
-  idCar    String
-  idOwner  String
-  checkin  DateTime
-  checkout DateTime?
+  active   Boolean @default(true)
   Car      Car       @relation(fields: [idCar], references: [plate])
   Owner    Owner     @relation(fields: [idOwner], references: [id])
 }

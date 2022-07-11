@@ -27,4 +27,9 @@ export class TransactionController {
   checkout(@Param('id') params : string){
     return this.transactionService.doCheckout(params);
   }
+
+  @Get(":id")
+  one(@Param('id') params : string){
+    return this.transactionService.one(params);
+  }
 }

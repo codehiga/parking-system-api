@@ -30,16 +30,17 @@ export class TransactionRepositoryImplementation implements TransactionRepositor
 
   allParkedCars = async () => {
 
-    return await prisma.transaction.findMany();
+    return await prisma.transaction.findMany({
+      orderBy : [
+        {checkin : 'desc'},
+      ]
+    });
   };
 
   doCheckout = async (id : string, transaction : UpdateTransactionDto) => {
 
-    await prisma.transaction.delete({
-      where : { id }
-    })
-
-    return await prisma.oldTransaction.create({
+    return await prisma.transaction.update({
+      where : { id },
       data : transaction
     })
   };
