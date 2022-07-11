@@ -17,15 +17,17 @@ export class TransactionRepositoryImplementation implements TransactionRepositor
 
   isParked = async (plate: string) => {
 
-    let query = await prisma.transaction.count({
+    let query = await prisma.transaction.findFirst({
       where : {
-        idCar : {
+        plate : {
           equals : plate
         }
       }
     })
+
+    console.log(query)
     
-    return query === 1 ? true : false;
+    return query;
   };
 
   allParkedCars = async () => {

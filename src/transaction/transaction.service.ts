@@ -12,11 +12,13 @@ export class TransactionService {
   create(createTransactionDto: CreateTransactionDto) {
 
     const transaction : Transaction = {
-      id : randomUUID(),
-      checkin : new Date(),
-      idCar : createTransactionDto.idCar,
-      idOwner : createTransactionDto.idOwner,
-      checkout : new Date()
+      id: randomUUID(),
+      checkin: new Date(),
+      checkout: new Date(),
+      name: createTransactionDto.name,
+      plate: createTransactionDto.plate,
+      tel: createTransactionDto.tel,
+      idOwner: createTransactionDto.idOwner
     }
 
     return transactionRepo.doCheckin(transaction);

@@ -7,29 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Car {
-  plate          String           @id
-  color          String
-  idOwner        String
-  Owner          Owner            @relation(fields: [idOwner], references: [id])
-  Transaction    Transaction[]
-}
-
-model Owner {
-  id             String           @id
-  name           String
-  tel            String
-  Car            Car[]
-  Transaction    Transaction[]
-}
-
 model Transaction {
   id       String    @id
-  idCar    String
   idOwner  String
   checkin  DateTime
   checkout DateTime?
+  plate          String
+  name           String
+  tel            String
   active   Boolean @default(true)
-  Car      Car       @relation(fields: [idCar], references: [plate])
-  Owner    Owner     @relation(fields: [idOwner], references: [id])
 }

@@ -1,5 +1,6 @@
 export class CreateTransactionDto {
-  idCar : string;
+  plate : string;
+  name : string
+  tel : string
   idOwner : string;
-  checkin : Date;
 }
