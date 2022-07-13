@@ -1,6 +1,6 @@
 export class Transaction {
-  id : string;
-  checkin : Date;
+  id ?: string;
+  checkin ?: Date;
   checkout ?: Date;
   idOwner : string;
   plate : string;

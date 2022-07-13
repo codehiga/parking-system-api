@@ -12,9 +12,6 @@ export class TransactionService {
   create(createTransactionDto: CreateTransactionDto) {
 
     const transaction : Transaction = {
-      id: randomUUID(),
-      checkin: new Date(),
-      checkout: new Date(),
       name: createTransactionDto.name,
       plate: createTransactionDto.plate,
       tel: createTransactionDto.tel,

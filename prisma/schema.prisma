@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Transaction {
-  id       String    @id
+  id       String    @id @default(uuid())
   idOwner  String
-  checkin  DateTime
+  checkin  DateTime @default(now())
   checkout DateTime?
-  plate          String
+  plate          String @unique
   name           String
   tel            String
   active   Boolean @default(true)

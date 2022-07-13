@@ -17,15 +17,9 @@ export class TransactionRepositoryImplementation implements TransactionRepositor
 
   isParked = async (plate: string) => {
 
-    let query = await prisma.transaction.findFirst({
-      where : {
-        plate : {
-          equals : plate
-        }
-      }
+    let query = await prisma.transaction.findUnique({
+      where : { plate }
     })
-
-    console.log(query)
     
     return query;
   };
@@ -39,18 +33,17 @@ export class TransactionRepositoryImplementation implements TransactionRepositor
     });
   };
 
-  doCheckout = async (id : string, transaction : UpdateTransactionDto) => {
+  doCheckout = async (plate : string, transaction : UpdateTransactionDto) => {
 
     return await prisma.transaction.update({
-      where : { id },
+      where : { plate },
       data : transaction
     })
   };
 
-
-  one = async (id:string) => {
+  one = async (plate : string) => {
     return await prisma.transaction.findUnique({
-      where : { id }
+      where : { plate }
     })
   }
 
